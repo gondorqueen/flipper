@@ -43,7 +43,7 @@ function(generate_cpp)
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
 
         protobuf_generate(TARGET flipper
-            LANGUAGE ${GENERATE_CPP_MODE}
+            LANGUAGE CPP
             PLUGIN ${GENERATE_CPP_PLUGIN}
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
