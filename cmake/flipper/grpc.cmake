@@ -43,7 +43,6 @@ function(generate_cpp)
 
         protobuf_generate(TARGET flipper
             LANGUAGE CPP
-            PLUGIN ""
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
