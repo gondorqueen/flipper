@@ -59,7 +59,8 @@ function(generate_cpp)
             LANGUAGE GRPC
             PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
             PROTOS  ${${actual}_PROTOS}
-            PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
+            PROtOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
+      endforeach()       
 endfunction()
 
 
