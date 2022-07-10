@@ -9,7 +9,6 @@ ${REPOSITORY_ROOT}/proto/statistics/favlist
 ${REPOSITORY_ROOT}/proto/recommendations/diagnostic_recommendations
 ${REPOSITORY_ROOT}/proto/recommendations/recommendations
 ${REPOSITORY_ROOT}/proto/server_base_structs
-${REPOSITORY_ROOT}/proto/feeder_service
 )
 
 set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service)
@@ -44,7 +43,7 @@ function(generate_cpp)
 
         protobuf_generate(TARGET flipper
             LANGUAGE CPP
-            PLUGIN 
+            PLUGIN ${GENERATE_CPP_PLUGIN}
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
