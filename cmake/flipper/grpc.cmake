@@ -9,7 +9,8 @@ ${REPOSITORY_ROOT}/proto/statistics/favlist
 ${REPOSITORY_ROOT}/proto/recommendations/diagnostic_recommendations
 ${REPOSITORY_ROOT}/proto/recommendations/recommendations
 ${REPOSITORY_ROOT}/proto/server_base_structs
-)
+ ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
+ )
 
 set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
 )
@@ -55,6 +56,8 @@ function(generate_cpp)
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
         
         protobuf_generate(TARGET flipper
+            LANGUAGE GRPC
+            GENERATE_EXTENSIONS .grpc.pb.h
             PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
