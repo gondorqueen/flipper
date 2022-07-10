@@ -12,7 +12,8 @@ ${REPOSITORY_ROOT}/proto/server_base_structs
 ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
 )
 
-set(GRPC_FILES )
+set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
+)
 
 find_package(Protobuf CONFIG REQUIRED)
 message(STATUS "Using protobuf ${Protobuf_VERSION}")
@@ -43,12 +44,14 @@ function(generate_cpp)
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
 
         protobuf_generate(TARGET flipper
-            LANGUAGE CPP
+            LANGUAGE ${GENERATE_CPP_MODE}
+            PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
     endforeach()
 endfunction()
+
 
 generate_cpp(FILES ${PROTOBUF_FILES}
              MODE CPP
