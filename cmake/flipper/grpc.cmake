@@ -19,7 +19,7 @@ find_package(Protobuf CONFIG REQUIRED)
 message(STATUS "Using protobuf ${Protobuf_VERSION}")
 
 if(MSVC AND protobuf_MSVC_STATIC_RUNTIME)
-  foreach(flag_var
+  foreach(flag_var 
       CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
       CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
     if(${flag_var} MATCHES "/MD")
@@ -38,18 +38,28 @@ function(generate_cpp)
     #message("passed files " ${GENERATE_CPP_FILES})
     #message("passed language " ${GENERATE_CPP_MODE})
     #message("passed plugin " ${GENERATE_CPP_PLUGIN})
-    foreach(processed_file ${GENERATE_CPP_FILES})
+    foreach(processed_file ${PROTOBUF_FILES ) 
         get_filename_component(_abs_file ${processed_file}.proto ABSOLUTE)
         set(${actual}_PROTOS ${_abs_file})
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
 
         protobuf_generate(TARGET flipper
-            LANGUAGE ${GENERATE_CPP_MODE}
-            PLUGIN ${GENERATE_CPP_PLUGIN}
+            LANGUAGE CPP
+            PLUGIN 
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
     endforeach()
+    foreach(processed_file ${GRPC_FILES ) 
+        get_filename_component(_abs_file ${processed_file}.proto ABSOLUTE)
+        set(${actual}_PROTOS ${_abs_file})
+        set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
+        
+        protobuf_generate(TARGET flipper
+            LANGUAGE GRPC
+            PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
+            PROTOS  ${${actual}_PROTOS}
+            PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
 endfunction()
 
 
