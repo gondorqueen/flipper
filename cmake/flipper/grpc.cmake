@@ -56,10 +56,10 @@ function(generate_cpp)
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
         
         protobuf_generate(TARGET flipper
-            LANGUAGE GRPC
+            LANGUAGE grpc
             PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
             PROTOS  ${${actual}_PROTOS}
-            PROtOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
+            PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
       endforeach()       
 endfunction()
