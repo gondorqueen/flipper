@@ -50,7 +50,7 @@ function(generate_cpp)
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
             )
     endforeach()
-    foreach(processed_file ${GRPC_FILES ) 
+    foreach(processed_file ${GRPC_FILES} ) 
         get_filename_component(_abs_file ${processed_file}.proto ABSOLUTE)
         set(${actual}_PROTOS ${_abs_file})
         set(_protobuf_include_path -I ${REPOSITORY_ROOT_ABSOLUTE}/proto )
