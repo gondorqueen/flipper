@@ -9,7 +9,6 @@ ${REPOSITORY_ROOT}/proto/statistics/favlist
 ${REPOSITORY_ROOT}/proto/recommendations/diagnostic_recommendations
 ${REPOSITORY_ROOT}/proto/recommendations/recommendations
 ${REPOSITORY_ROOT}/proto/server_base_structs
-${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
 )
 
 set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
