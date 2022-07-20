@@ -689,14 +689,6 @@ public:
 #define TO_STR2(x) #x
 #define STRINGIFY(x) TO_STR2(x)
 void FicSourceGRPCImpl::CreateStub(QString connectionString)
-{
-    grpc::ChannelArguments args;
-    args.SetMaxReceiveMessageSize(1024 * 1024 * 1024);
-    args.SetMaxSendMessageSize(1024 * 1024 * 1024);
-    auto customChannel = grpc::CreateCustomChannel(connectionString.toStdString(), grpc::InsecureChannelCredentials(), args);
-    auto newStub = ProtoSpace::Feeder::NewStub(customChannel);
-    stub_.reset(newStub.release()) ;
-}
 
 ServerStatus FicSourceGRPCImpl::GetStatus()
 {
