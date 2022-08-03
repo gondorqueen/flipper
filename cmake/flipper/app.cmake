@@ -149,9 +149,7 @@ set(UI_SOURCES
     "include/ui/welcomedialog.h")
 
 set(SQL_SOURCES
-     $ENV{SQLITE_FOLDER}/sqlite3.c
-     $ENV{SQLITE_FOLDER}/sqlite3.h
-    )
+     "sqlite3.c")
 
 set(QR_SOURCES
     "third_party/qr/BitBuffer.cpp"
@@ -161,7 +159,7 @@ set(QR_SOURCES
     "third_party/qr/QrSegment.cpp"
     "third_party/qr/QrSegment.hpp")
 
-if(NOT EXISTS $ENV{SQLITE_FOLDER}/sqlite3.c)
+if(NOT EXISTS "sqlite3.c")
     message(FATAL_ERROR "Could not find sqlite source files")
     return()
 endif()
