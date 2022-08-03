@@ -9,17 +9,16 @@ ${REPOSITORY_ROOT}/proto/statistics/favlist
 ${REPOSITORY_ROOT}/proto/recommendations/diagnostic_recommendations
 ${REPOSITORY_ROOT}/proto/recommendations/recommendations
 ${REPOSITORY_ROOT}/proto/server_base_structs
- ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
- )
-
-set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service
+${REPOSITORY_ROOT}/proto/feeder_service
 )
+
+set(GRPC_FILES ${REPOSITORY_ROOT_ABSOLUTE}/proto/feeder_service)
 
 find_package(Protobuf CONFIG REQUIRED)
 message(STATUS "Using protobuf ${Protobuf_VERSION}")
 
 if(MSVC AND protobuf_MSVC_STATIC_RUNTIME)
-  foreach(flag_var 
+  foreach(flag_var
       CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
       CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
     if(${flag_var} MATCHES "/MD")
@@ -27,8 +26,7 @@ if(MSVC AND protobuf_MSVC_STATIC_RUNTIME)
     endif(${flag_var} MATCHES "/MD")
   endforeach()
 endif()
-
-function(generate_cpp)
+ function(generate_cpp)
     include(CMakeParseArguments)
     set(_options)
     set(_singleargs MODE PLUGIN)
@@ -57,7 +55,7 @@ function(generate_cpp)
         
         protobuf_generate(TARGET flipper
             LANGUAGE GRPC
-            GENERATE_EXTENSIONS .grpc.pb.h
+            GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc
             PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin"
             PROTOS  ${${actual}_PROTOS}
             PROTOC_OUT_DIR ${REPOSITORY_ROOT_ABSOLUTE}/proto
@@ -73,5 +71,3 @@ generate_cpp(FILES ${PROTOBUF_FILES}
 generate_cpp(FILES ${GRPC_FILES}
           MODE GRPC
           PLUGIN "protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin")
-
-
