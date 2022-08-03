@@ -19,16 +19,23 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_LIST_DIR}/../../UI)
 option(USE_POSTGRES "whether postregs is enabled" ON)
 option(BUILD_SHARED_LIBS "build libs" ON)
 
+include(FetchContent)
+FetchContent_Declare(
+  gRPC
+  GIT_REPOSITORY https://github.com/grpc/grpc
+  GIT_TAG        v1.48.0  # e.g v1.28.0
+)
+set(FETCHCONTENT_QUIET OFF)
+FetchContent_MakeAvailable(gRPC)
 
 
 add_executable(flipper)
 target_include_directories(flipper PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../../)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Sql Concurrent Widgets Gui Network Quick QuickWidgets Qml WebEngine WebEngineWidgets WebView)
-target_link_libraries(flipper PRIVATE  Qt5::Core Qt5::Sql Qt5::Concurrent Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Quick
-    Qt5::Qml Qt5::QuickWidgets Qt5::WebView Qt5::WebEngineWidgets )
+target_link_libraries(flipper PRIVATE  Qt5::Core Qt5::Sql Qt5::Concurrent Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Quick Qt5::Qml Qt5::QuickWidgets Qt5::WebView Qt5::WebEngineWidgets )
 target_link_libraries(flipper PRIVATE protobuf dl grpc grpc++ gpr cares crypto ssl curl cpr pthread)
-target_link_libraries(flipper PRIVATE Logger UniversalModels Sql)
+target_link_libraries(flipper PRIVATE Logger UniversalModels Sql fmt)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-variable -Wno-unused-parameter -Wno-cast-function-type -Wno-implicit-fallthrough")
 
